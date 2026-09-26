@@ -1,0 +1,48 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Packaging and build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test and coverage output
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Type checker and linter caches
+.mypy_cache/
+.pyre/
+.ruff_cache/
+
+# Local environment and editor files
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+
+# Redis runtime data and logs
+dump.rdb
+appendonly.aof
+appendonlydir/
+*.rdb
+*.aof
+*.log
+
+# OS-generated files
+.DS_Store
+Thumbs.db

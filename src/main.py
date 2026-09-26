@@ -1,5 +1,6 @@
 import socket  # noqa: F401
 import threading
+from resp import parser_resp
 
 def handle_client(conn):
     while True:
@@ -9,7 +10,9 @@ def handle_client(conn):
             break
 
         print("Received:", data)
-        conn.send(b"+PONG\r\n")
+        text = data.decode("utf-8")
+        parsed_data = parser_resp(text)
+        print(parsed_data)
 
 
 def main():
