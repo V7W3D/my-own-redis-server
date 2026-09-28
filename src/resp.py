@@ -1,5 +1,5 @@
-from message_types.simple_string import SimpleString 
-from message_types.error_string import ErrorString
+from message_types import SimpleString 
+from message_types import ErrorString
 
 def simple_parse_resp(message: str, index: int) -> tuple[str, int]:
     i = index
