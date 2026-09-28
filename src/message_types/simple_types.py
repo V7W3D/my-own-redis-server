@@ -7,3 +7,7 @@ class SimpleString:
 @dataclass
 class ErrorString:
     value: str
+
+@dataclass
+class SimpleInteger:
+    value: int

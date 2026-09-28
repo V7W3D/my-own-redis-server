@@ -1,5 +1,5 @@
-from message_types import SimpleString 
-from message_types import ErrorString
+from message_types import SimpleString, ErrorString
+from message_types import SimpleInteger
 
 def simple_parse_resp(message: str, index: int) -> tuple[str, int]:
     i = index
@@ -28,7 +28,8 @@ def parser_resp(message: str) -> list[any]:
                 parsed_text, i = simple_parse_resp(message, i+1)
                 result.append(ErrorString(parsed_text))
             case ":":
-                pass
+                parsed_text, i = simple_parse_resp(message, i+1)
+                result.append(SimpleInteger(parsed_text))
             case "$":
                 pass
             case "*":
