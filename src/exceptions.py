@@ -1,0 +1,2 @@
+class RespProtocolError(ValueError):
+    pass
