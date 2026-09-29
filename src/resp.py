@@ -18,8 +18,12 @@ def simple_parse_resp(message: str, index: int) -> tuple[str, int]:
 
 def bulk_string_parse_resp(message: str, index: int) -> tuple[SimpleString, int]:
     i = index
-    string_length, i = simple_parse_resp(message, i)
-    string_length = int(string_length)
+    string_length_str, i = simple_parse_resp(message, i)
+    try:
+        string_length = int(string_length_str)
+    except ValueError as exc:
+        raise RespProtocolError(f"Invalid array length: {string_length_str!r}") from exc
+    
     string_text, i = simple_parse_resp(message, i)
     if len(string_text) <= string_length:
         return (SimpleString(string_text), i)
@@ -37,22 +41,26 @@ def parser_resp(message: str, i: int, *, array_length: Optional[int] = None) -> 
 
         match message[i]:
             case "+":
-                parsed_result, i = simple_parse_resp(message, i+1)
-                result.append(SimpleString(parsed_result))
+                parsed, i = simple_parse_resp(message, i+1)
+                result.append(SimpleString(parsed))
             case "-":
-                parsed_result, i = simple_parse_resp(message, i+1)
-                result.append(ErrorString(parsed_result))
+                parsed, i = simple_parse_resp(message, i+1)
+                result.append(ErrorString(parsed))
             case ":":
-                parsed_result, i = simple_parse_resp(message, i+1)
-                result.append(SimpleInteger(parsed_result))
+                parsed, i = simple_parse_resp(message, i+1)
+                result.append(SimpleInteger(parsed))
             case "$":
-                parsed_result, i = bulk_string_parse_resp(message, i+1)
-                result.append(parsed_result)
+                parsed, i = bulk_string_parse_resp(message, i+1)
+                result.append(parsed)
             case "*":
-                array_length, i = simple_parse_resp(message, i+1)
-                array_length = int(array_length)
+                array_length_str, i = simple_parse_resp(message, i+1)
+                try:
+                    array_length = int(array_length_str)
+                except ValueError as exc:
+                    raise RespProtocolError(f"Invalid array length: {array_length_str!r}") from exc
+
                 parsed_array, i = parser_resp(message, i, array_length=array_length)
-                result.append(RespArray(parsed_array))
+                result.append(RespArray(parsed_array)) 
             case _:
                 pass
         i += 1
