@@ -30,7 +30,7 @@ def bulk_string_parse_resp(message: str, index: int) -> tuple[SimpleString, int]
     else:
         raise RespProtocolError("Bulk string is longer than its defined length.")
 
-def parser_resp(message: str, i: int, *, array_length: Optional[int] = None) -> list[any]:
+def parser_resp(message: str, i: int, *, array_length: Optional[int] = None) -> tuple[list[any], int]:
     if len(message) < 0:
         raise ValueError("Message to parse with RESP is empty.")
     
