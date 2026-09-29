@@ -11,7 +11,7 @@ def handle_client(conn):
 
         print("Received:", data)
         text = data.decode("utf-8")
-        parsed_data = parser_resp(text)
+        parsed_data = parser_resp(text, 0)
         print(parsed_data)
 
 
