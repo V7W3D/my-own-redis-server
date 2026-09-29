@@ -64,4 +64,8 @@ def parser_resp(message: str, i: int, *, array_length: Optional[int] = None) -> 
             case _:
                 pass
         i += 1
+    
+    if array_length is not None and len(result) > array_length:
+        raise RespProtocolError("Array is longer than its defined length.")
+    
     return result, i
