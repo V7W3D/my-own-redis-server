@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="RedisServer.App/RedisServer.App.csproj" />
+  <Project Path="RedisServer.Tests/RedisServer.Tests.csproj" />
+</Solution>
