@@ -1,19 +1,17 @@
 ﻿using System.Net.Sockets;
 using System.Net;
 
-TcpListener? server = null;
+const int Port = 6380;
 try
 {
-    server = new TcpListener(IPAddress.Loopback, 6879);
+    using TcpListener server = new TcpListener(IPAddress.Loopback, Port);
     server.Start();
-    TcpClient client = await server.AcceptTcpClientAsync();
+    using TcpClient client = await server.AcceptTcpClientAsync();
     Console.WriteLine("Client successfully connected!");
 }
 catch (SocketException e)
 {
-    Console.WriteLine("SocketException: {0}", e);
+    Console.Error.WriteLine("SocketException: {0}", e);
+    return 1;
 }
-finally
-{
-    server?.Stop();
-}
+return 0;
