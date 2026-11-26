@@ -1,1 +1,17 @@
 # my-own-redis-server
+This is an attempt to build a basic redis server in C# without AI in an effort to learn more about the C# language and the dotnet environement.
+
+Below are details of implementation as well as general lessons regarding the different aspects that are necessary to understand what is happening below the layers of abstractions:
+
+## Project structure
+An interesting thing to see here is how does a build happen, what files does it rely on and how do we acheive portability.
+
+On the portability topic: C# code is first compiled (Roslyn) into byte code (.dll) so an intermediary language, then each method gets compiled with a JIT compiler to machine code whenever its first needed.
+
+This is what achieves portability since the JIT compiler adapts to each machine architecture.
+
+Compiling first into .dll files brings other aspects such as keeping references so that the garbage collector can know when there is memory allocated in the heap without a reference anymore.
+
+A build is not a code compilation alone, it is a multiple step pipeline where packages are restored, references are resolved (so that all the .dll files necessary for compilation are assembled) before evening running the Roslyn compiler.
+
+This build is run by MSBuild which is dotnet's build engine, .csproj are the config files that specify refrences and build properties, the .slnx lists the projects to build.

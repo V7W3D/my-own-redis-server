@@ -15,8 +15,5 @@ catch (SocketException e)
 }
 finally
 {
-    if (server is not null)
-    {
-        server.Stop();
-    }
+    server?.Stop();
 }
