@@ -15,3 +15,12 @@ Compiling first into .dll files brings other aspects such as keeping references 
 A build is not a code compilation alone, it is a multiple step pipeline where packages are restored, references are resolved (so that all the .dll files necessary for compilation are assembled) before evening running the Roslyn compiler.
 
 This build is run by MSBuild which is dotnet's build engine, .csproj are the config files that specify refrences and build properties, the .slnx lists the projects to build.
+
+## Networking
+The first step of this project implies managing network sessions between the redis server and its clients.
+
+the C# language provides an abstraction to deal with network sockets, although understanding that these are kernel objects is interesting.
+
+Sockets are exposed to processes through the UNIX file interface, socket() and accept() return file descriptors, and read/write/close work on them like on files
+
+A particularly interesting thing is that the kernel does accept connections before the program ever calls accept(), the kernel pushes the socket with an open connection to the queue and lets the program decide whether to handle it or close it.
