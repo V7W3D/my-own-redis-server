@@ -28,7 +28,7 @@ A particularly interesting thing is that the kernel does accept connections befo
 ## Concurrency
 Accepting a client connection and handling I/O operations needs to be managed concurrently.
 
-A good opportunity to look at how async functions behave in C# vs how they'd behave in python which I'm most familiar with.
+A good opportunity to look at how async functions behave in C# vs how they'd behave in Python which I'm most familiar with.
 
 Calling an async method in C# contrary to Python is hot, it immediately runs on the caller's thread until the first await on something unfinished then returns a task to the caller.
 
